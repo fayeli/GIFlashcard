@@ -4,6 +4,11 @@
 
     "version": "1.0.0",
 
+    "engines": {
+
+        "node": "4.1.1"
+    },
+
     "description": "pearson contest app",
 
     "main": "server.js",
@@ -25,8 +30,6 @@
         "angular-animate": "^1.4.8",
 
         "angular-aria": "^1.4.8",
-
-        "angular-animate": "^1.4.8",
 
         "angular-material": "^1.4.8",
 
