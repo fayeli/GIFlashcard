@@ -7,20 +7,27 @@
       rel="stylesheet">
   <link href="css/main.css" rel="stylesheet" />
 </head>
-<body ng-app="MainApp" ng-controller="MainController" ng-cloak>
+
+
+<body ng-app="MainApp" ng-cloak>
+
+
   <!--
     Your HTML content here
   -->
   <div layout="row" class="main">
-    <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-sm')" layout-padding>
-      <div layout="column">
+    <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-sm')" layout-padding layout="column" layout-align="center center">
+      
         <md-icon class="logo" md-svg-src="img/icons/cards.svg"></md-icon>
+        <div>
         <h1> GIFlashcard </h1>
-        <p> {{ test }} </p>
-        <md-button > About </md-button>
-        <md-button > Demo </md-button>
-        <md-button > Settings </md-button>
+        <p> A fun & interactive language learning tool for creating flashcards with animated GIFs. </p>
+        </div>
+        <div>
+        <md-button href="/#/about"> About </md-button>
+        <md-button href="/#/"> Try it! </md-button>
       </div>
+
     </md-sidenav>
 
     <md-content flex class= "md-whiteframe-z2">
@@ -34,49 +41,7 @@
           </h2>
         </div>
       </md-toolbar>
-      <div layout="column" layout-padding >
-        <div>
-        <md-autocomplete 
-          ng-disabled="false"
-          md-no-cache="false"
-          md-selected-item="selectedItem"
-          md-search-text-change="searchTextChange(searchText)"
-          md-search-text="searchText"
-          md-selected-item-change="selectedItemChange(item)"
-          md-items="item in querySearch(searchText)"
-          md-item-text="item.headword"
-          md-min-length="1"
-          placeholder="What is the vocab for this new flashcard?">
-          <md-item-template>
-            <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.headword}}</span>
-          </md-item-template>
-          <md-not-found>
-            No vocab found. Please check spellings.
-          </md-not-found>
-        </md-autocomplete>
-        </div>
-
-        <div class="flip">
-          <div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
-            <md-card class="face front" layout="column" layout-align="center center">
-              <md-card-content>
-                <img ng-src={{gifurl}}>
-              </md-card-content>
-              <div class="vocab" >{{vocab}}</div>
-            </md-card>
-            <md-card class="face back">
-              <md-card-title>
-                <md-card-title-text layout="column" layout-align="center center">
-                  <span class="md-headline">{{vocab}}</span>
-                  <span class="md-subhead">{{translation}}</span>
-                </md-card-title-text>
-              </md-card-title>
-            </md-card>
-          </div>
-        </div>
-
-
-      </div>
+      <ng-view></ng-view>
     </md-content>
 
 
@@ -93,7 +58,9 @@
   <script src="./node_modules/angular/angular.js"></script>
   <script src="./node_modules/angular-aria/angular-aria.js"></script>
   <script src="./node_modules/angular-animate/angular-animate.js"></script>
+  <script src="./node_modules/angular-route/angular-route.js"></script>
   <script src="./node_modules/angular-material/angular-material.js"></script>
+
   
   <!-- Your application bootstrap  -->
   <script src = "js/app.js" type="text/javascript"></script>

@@ -35,6 +35,7 @@ footer span{
 }
 
 .logo {
+	margin: 0;
 	height: 100px;
 	width: 100px;
 	fill: black;

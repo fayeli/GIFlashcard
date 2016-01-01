@@ -1,10 +1,24 @@
-var app = angular.module('MainApp', ['ngMaterial'])
+var app = angular.module('MainApp', ['ngMaterial', 'ngRoute'])
 			.run(function($log){
-        		// $log.debug("MainApp running ");
+        		$log.debug("MainApp running ");
             });
 
-app.controller('MainController', ['$scope', '$http', '$filter', 
-	function($scope, $http, $filter){
+app.config(function ($routeProvider){
+	$routeProvider.when('/', {
+		controller: 'MainController',
+		templateUrl: 'views/demo.html'
+	}).when('/flashcard/:id', {
+		controller: 'MainController',
+		templateUrl: 'views/demo.html'
+	}).when('/about', {
+		templateUrl: 'views/about.html'
+	}).otherwise({
+		redirectTo: '/' 
+	});
+});
+
+app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
+	function($scope, $http, $filter, $routeParams){
 		$scope.test = 'A fun & interactive language learning tool for creating flashcards with animated GIFs.';
 		$scope.gifurl = '//media1.giphy.com/media/3o8doVAxrMjXbIHaU0/200w.gif';
 		$scope.translation = '狗';
