@@ -27,6 +27,24 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams',
 		$scope.selectedItemChange = selectedItemChange;
 		$scope.searchTextChange = searchTextChange;
 
+		if ($routeParams.id){
+			$scope.vocab = $routeParams.id;
+
+			$http.get('//api.giphy.com/v1/gifs/search?q=' + $routeParams.id + '&limit=5&rating=g&api_key=dc6zaTOxFJmzC')
+    		.success(function(data) {
+    			var image = data.data[0].images.fixed_width;
+    			if (image.height > 250){
+    				image = data.data[0].images.fixed_height;
+    			}
+				$scope.gifurl = image.url;
+			});
+
+    		$http.get('//api.pearson.com/v2/dictionaries/ldec/entries?headword=' + $routeParams.id)
+    		.then(function(response){		
+      			$scope.translation = response.data.results[0].senses[0].translation;
+      		});
+		}
+
 		function querySearch(query){
 			return $http.get('//api.pearson.com/v2/dictionaries/ldec/entries?headword=' + query)
 					.then(function(response){
