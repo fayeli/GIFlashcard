@@ -1,5 +1,5 @@
 <div layout="column" layout-padding ng-controller="MainController">
-        <div>
+  <div>
         <md-autocomplete 
           ng-disabled="false"
           md-no-cache="false"
@@ -18,9 +18,9 @@
             No vocab found. Please check spellings.
           </md-not-found>
         </md-autocomplete>
-        </div>
+  </div>
 
-        <div class="flip">
+  <div class="flip">
           <div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
             <md-card class="face front" layout="column" layout-align="center center">
               <md-card-content>
@@ -37,5 +37,23 @@
               </md-card-title>
             </md-card>
           </div>
-        </div>
-      </div>
+  </div>
+
+  <md-fab-speed-dial md-direction="up" md-open="true" class="md-scale md-fab-bottom-right">
+          <md-fab-trigger>
+            <md-button aria-label="share" class="md-fab">
+              <md-icon md-svg-src="img/icons/share.svg"></md-icon>
+            </md-button>
+          </md-fab-trigger>
+          <md-fab-actions>
+            <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
+              <md-icon md-svg-src="img/icons/twitter.svg" aria-label="Twitter"></md-icon>
+            </md-button>
+            <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+              <md-icon md-svg-src="img/icons/facebook.svg" aria-label="Facebook"></md-icon>
+            </md-button>
+            
+          </md-fab-actions>
+  </md-fab-speed-dial>
+
+</div>

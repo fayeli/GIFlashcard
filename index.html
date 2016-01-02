@@ -10,6 +10,17 @@
 
 
 <body ng-app="MainApp" ng-cloak>
+  <!-- Load Facebook SDK -->
+  <div id="fb-root"></div>
+  <script>
+      (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
 
 
   <!--
@@ -18,7 +29,7 @@
   <div layout="row" class="main">
     <md-sidenav md-component-id="left" class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-sm')" layout-padding layout="column" layout-align="center center">
       
-        <md-icon class="logo" md-svg-src="img/icons/cards.svg"></md-icon>
+        <img class="logo" src="img/icons/cards.png">
         <div>
         <h1> GIFlashcard </h1>
         <p> A fun & interactive language learning tool for creating flashcards with animated GIFs. </p>

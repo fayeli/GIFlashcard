@@ -17,9 +17,10 @@ app.config(function ($routeProvider){
 	});
 });
 
-app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
-	function($scope, $http, $filter, $routeParams){
+app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', '$compile', 
+	function($scope, $http, $filter, $routeParams, $compile){
 		$scope.test = 'A fun & interactive language learning tool for creating flashcards with animated GIFs.';
+		$scope.isFabOpen = false;
 		$scope.gifurl = '//media1.giphy.com/media/3o8doVAxrMjXbIHaU0/200w.gif';
 		$scope.translation = '狗';
 		$scope.vocab = 'dog';
@@ -43,8 +44,12 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams',
     		.then(function(response){		
       			$scope.translation = response.data.results[0].senses[0].translation;
       		});
+
+      		$scope.shareURL = 'https://giflashcard.herokuapp.com/#/' + $scope.vocab
 		}
 
+		$scope.shareURL = 'https://giflashcard.herokuapp.com/#/' + $scope.vocab
+		
 		function querySearch(query){
 			return $http.get('//api.pearson.com/v2/dictionaries/ldec/entries?headword=' + query)
 					.then(function(response){
@@ -70,6 +75,12 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams',
     		}
 			$scope.gifurl = image.url;
 			});
+
+    		$scope.shareURL = 'https://giflashcard.herokuapp.com/#/' + $scope.vocab;
+    		// var item = angular.element(document.getElementById('fb-share-button'));
+    		// var newitem = $compile('<div class="fb-share-button" data-href="{{shareURL}}" data-layout="button"></div>')($scope);
+    		// item.replaceWith(newitem);
+
 		};
 
 }]);
