@@ -1,4 +1,7 @@
-var app = angular.module('MainApp', ['ngMaterial', 'ngRoute'])
+var app = angular.module('MainApp', ['ngMaterial', 'ngRoute', 'djds4rce.angular-socialshare'])
+			.config(function($locationProvider){
+				$locationProvider.html5Mode(true).hashPrefix('!');
+			})
 			.run(function($log){
         		$log.debug("MainApp running ");
             });
