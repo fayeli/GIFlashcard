@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "engines": {
     "node": "4.2.3",
-    "npm": "3.5.2"
+    "npm": "3.5.2",
+    "bower": "1.7.1"
   },
   "description": "pearson contest app",
   "main": "server.js",
