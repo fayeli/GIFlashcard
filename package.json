@@ -19,6 +19,5 @@
     "angular-route": "1.4.8",
     "angular-material": "1.0.0",
     "angular-socialshare": "1.4.4,
-    "express": "4.13.3"
-  }
+    "express": "^4.13.3"  }
 }
