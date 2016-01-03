@@ -1,5 +1,7 @@
 <div layout="column" layout-padding ng-controller="MainController">
 
+  <div facebook class="facebookShare" data-title='{{title}}' data-picture-url='http://i.imgur.com/WACv9Cl.jpg' data-url='{{url}}' data-shares='shares'>{{ shares }}</div>
+
   <h4> Tell us about yourself: </h4>
   <md-radio-group ng-model="dictionary">
       <md-radio-button value="ldec" class="md-primary">I am learning <b>English</b>, and I'd like to have <b>Chinese</b> translation on the flipped side of the flashcard.   </md-radio-button>

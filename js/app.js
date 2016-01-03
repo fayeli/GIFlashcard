@@ -4,7 +4,10 @@ var app = angular.module('MainApp', ['ngMaterial', 'ngRoute', 'djds4rce.angular-
 			})
 			.run(function($log){
         		$log.debug("MainApp running ");
-            });
+            })
+            .run(function($FB){
+  				$FB.init('386469651480295');
+  			});
 
 app.config(function ($routeProvider){
 	$routeProvider.when('/', {
