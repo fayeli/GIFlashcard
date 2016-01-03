@@ -1,6 +1,5 @@
 <div layout="column" layout-padding ng-controller="MainController">
 
-  <div facebook class="facebookShare" data-title='{{title}}' data-picture-url='http://i.imgur.com/WACv9Cl.jpg' data-url='{{url}}' data-shares='shares'>{{ shares }}</div>
 
   <h4> Tell us about yourself: </h4>
   <md-radio-group ng-model="dictionary">
@@ -58,12 +57,8 @@
             </md-button>
           </md-fab-trigger>
           <md-fab-actions>
-            <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
-              <md-icon md-svg-src="img/icons/twitter.svg" aria-label="Twitter"></md-icon>
-            </md-button>
-            <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
-              <md-icon md-svg-src="img/icons/facebook.svg" aria-label="Facebook"></md-icon>
-            </md-button>
+            <a twitter data-lang="en" data-count='horizontal' data-url='{{shareURL}}' data-size="large" data-text='Just made a flashcard with GIFlashcard. Its soooo cool! Check this out:' aria-label="Twitter">
+            </a>
             
           </md-fab-actions>
   </md-fab-speed-dial>

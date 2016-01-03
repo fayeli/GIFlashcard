@@ -4,10 +4,7 @@ var app = angular.module('MainApp', ['ngMaterial', 'ngRoute', 'djds4rce.angular-
 			})
 			.run(function($log){
         		$log.debug("MainApp running ");
-            })
-            .run(function($FB){
-  				$FB.init('386469651480295');
-  			});
+            });
 
 app.config(function ($routeProvider){
 	$routeProvider.when('/', {
@@ -26,6 +23,7 @@ app.config(function ($routeProvider){
 app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', '$compile', 
 	function($scope, $http, $filter, $routeParams, $compile){
 		$scope.test = 'A fun & interactive language learning tool for creating flashcards with animated GIFs.';
+		$scope.shareURL = 'https://giflashcard.herokuapp.com/';
 		$scope.isFabOpen = false;
 		$scope.dictionary = 'ldoce5';
 		$scope.gifurl = '//media1.giphy.com/media/3o8doVAxrMjXbIHaU0/200w.gif';
@@ -63,10 +61,8 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
     		
       		
 
-      		$scope.shareURL = 'https://giflashcard.herokuapp.com/#/' + $scope.vocab
+      		
 		}
-
-		$scope.shareURL = 'https://giflashcard.herokuapp.com/#/' + $scope.vocab
 
 		function querySearch(query){
 			return $http.get('//api.pearson.com/v2/dictionaries/' + $scope.dictionary + '/entries?headword=' + query)
@@ -98,10 +94,7 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
 			$scope.gifurl = image.url;
 			});
 
-    		$scope.shareURL = 'https://giflashcard.herokuapp.com/#/' + $scope.vocab;
-    		// var item = angular.element(document.getElementById('fb-share-button'));
-    		// var newitem = $compile('<div class="fb-share-button" data-href="{{shareURL}}" data-layout="button"></div>')($scope);
-    		// item.replaceWith(newitem);
+    		$scope.shareURL = 'https://giflashcard.herokuapp.com/flashcard/' + $scope.dictionary + '/' + $scope.vocab;
 
 		};
 
