@@ -13,11 +13,15 @@
   "author": "fayeli",
   "license": "MIT",
   "dependencies": {
+    "bower": "1.7.1",
     "angular": "1.4.8",
     "angular-aria": "1.4.8",
     "angular-animate": "1.4.8",
     "angular-route": "1.4.8",
     "angular-material": "1.0.0",
     "angular-socialshare": "0.1.20",
-    "express": "4.13.3"  }
+    "express": "4.13.3"  },
+  "scripts": {
+    "postinstall": "bower install angular-socialshare"
+}
 }
