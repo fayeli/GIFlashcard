@@ -27,7 +27,7 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
 		$scope.isFabOpen = false;
 		$scope.dictionary = 'ldoce5';
 		$scope.gifurl = '//media1.giphy.com/media/3o8doVAxrMjXbIHaU0/200w.gif';
-		$scope.translation = '狗';
+		$scope.translation = 'a common animal with four legs, fur, and a tail. Dogs are kept as pets or trained to guard places, find drugs etc';
 		$scope.vocab = 'dog';
 		$scope.querySearch = querySearch;
 		$scope.selectedItemChange = selectedItemChange;
