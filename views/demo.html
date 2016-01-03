@@ -1,4 +1,14 @@
 <div layout="column" layout-padding ng-controller="MainController">
+
+  <h4> Tell us about yourself: </h4>
+  <md-radio-group ng-model="dictionary">
+      <md-radio-button value="ldec" class="md-primary">I am learning <b>English</b>, and I'd like to have <b>Chinese</b> translation on the flipped side of the flashcard.   </md-radio-button>
+      <md-radio-button value="brep" class="md-primary">I am learning <b>English</b>, and I'd like to have <b>Portuguese</b> translation on the flipped side of the flashcard.</md-radio-button>
+      <md-radio-button value="ldoce5" class="md-primary">I am learning <b>English</b>, and I'd like to have the definition of the vocabulary on the flipped side.</md-radio-button>
+      <md-radio-button value="lase" class="md-primary">I am learning <b>Spanish</b>, and I'd like to have <b>English</b> translation on the flipped side of the flashcard.</md-radio-button>
+  </md-radio-group>
+
+  <h4> Enter a word: </h4>
   <div>
         <md-autocomplete 
           ng-disabled="false"

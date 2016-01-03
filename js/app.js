@@ -7,7 +7,7 @@ app.config(function ($routeProvider){
 	$routeProvider.when('/', {
 		controller: 'MainController',
 		templateUrl: 'views/demo.html'
-	}).when('/flashcard/:id', {
+	}).when('/flashcard/:dict/:id', {
 		controller: 'MainController',
 		templateUrl: 'views/demo.html'
 	}).when('/about', {
@@ -21,6 +21,7 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
 	function($scope, $http, $filter, $routeParams, $compile){
 		$scope.test = 'A fun & interactive language learning tool for creating flashcards with animated GIFs.';
 		$scope.isFabOpen = false;
+		$scope.dictionary = 'ldoce5';
 		$scope.gifurl = '//media1.giphy.com/media/3o8doVAxrMjXbIHaU0/200w.gif';
 		$scope.translation = '狗';
 		$scope.vocab = 'dog';
@@ -28,32 +29,43 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
 		$scope.selectedItemChange = selectedItemChange;
 		$scope.searchTextChange = searchTextChange;
 
+		if ($routeParams.dict){
+			$scope.dictionary = $routeParams.dict;
+		}
+
 		if ($routeParams.id){
 			$scope.vocab = $routeParams.id;
+			var query = $scope.vocab;
 
-			$http.get('//api.giphy.com/v1/gifs/search?q=' + $routeParams.id + '&limit=5&rating=g&api_key=dc6zaTOxFJmzC')
-    		.success(function(data) {
-    			var image = data.data[0].images.fixed_width;
-    			if (image.height > 250){
-    				image = data.data[0].images.fixed_height;
-    			}
-				$scope.gifurl = image.url;
-			});
-
-    		$http.get('//api.pearson.com/v2/dictionaries/ldec/entries?headword=' + $routeParams.id)
+			$http.get('//api.pearson.com/v2/dictionaries/'+ $scope.dictionary + '/entries?headword=' + $scope.vocab)
     		.then(function(response){		
-      			$scope.translation = response.data.results[0].senses[0].translation;
+      			$scope.translation = getTranslation($scope.dictionary,response.data.results[0]);
+
+      			if ($scope.dictionary === 'lase'){
+      				query = $scope.translation;
+      			}
+      			$http.get('//api.giphy.com/v1/gifs/search?q=' + query + '&limit=5&rating=g&api_key=dc6zaTOxFJmzC')
+    		.success(function(data) {
+    				var image = data.data[0].images.fixed_width;
+    				if (image.height > 250){
+    					image = data.data[0].images.fixed_height;
+    				}
+					$scope.gifurl = image.url;
+				});
       		});
+
+    		
+      		
 
       		$scope.shareURL = 'https://giflashcard.herokuapp.com/#/' + $scope.vocab
 		}
 
 		$scope.shareURL = 'https://giflashcard.herokuapp.com/#/' + $scope.vocab
-		
+
 		function querySearch(query){
-			return $http.get('//api.pearson.com/v2/dictionaries/ldec/entries?headword=' + query)
+			return $http.get('//api.pearson.com/v2/dictionaries/' + $scope.dictionary + '/entries?headword=' + query)
 					.then(function(response){
-      				// console.log(response.data.results);
+      				
       				return response.data.results;
     		});
 		};
@@ -65,9 +77,13 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
 		function selectedItemChange(item){
 			// console.log('Item selected is' + item.headword);
 			$scope.vocab = item.headword;
-			$scope.translation = item.senses[0].translation;
+			var query = item.headword;
 
-			$http.get('//api.giphy.com/v1/gifs/search?q=' + item.headword + '&limit=5&rating=g&api_key=dc6zaTOxFJmzC')
+			$scope.translation = getTranslation($scope.dictionary, item);
+			if ($scope.dictionary === 'lase'){
+				query = $scope.translation;
+			}
+			$http.get('//api.giphy.com/v1/gifs/search?q=' + query + '&limit=5&rating=g&api_key=dc6zaTOxFJmzC')
     .success(function(data) {
     		var image = data.data[0].images.fixed_width;
     		if (image.height > 250){
@@ -82,5 +98,17 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
     		// item.replaceWith(newitem);
 
 		};
+
+		function getTranslation(dict, item){
+			if (dict === 'ldec'){
+				return item.senses[0].translation;
+			} else if (dict === 'brep'){
+				return item.senses[0].translations[0].text[0];
+			} else if (dict === 'lase'){
+				return item.senses[0].translations[0].text[0];
+			} else if (dict === 'ldoce5'){
+				return item.senses[0].definition[0];
+			}
+		}
 
 }]);
