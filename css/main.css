@@ -46,8 +46,8 @@ footer span{
 .flip {
 	-webkit-perspective: 800;
 	position: relative;	
-	height: 350px;
-	width: 350px;
+	height: 330px;
+	width: 330px;
 }
 
 .flip .card.flipped {
@@ -86,4 +86,5 @@ footer span{
 	font-size: 24px;
 	font-weight: bold;
 }
+
 

@@ -1,16 +1,24 @@
 <div layout="column" layout-padding ng-controller="MainController">
 
-
-  <h4> Tell us about yourself: </h4>
-  <md-radio-group ng-model="dictionary">
-      <md-radio-button value="ldec" class="md-primary">I am learning <b>English</b>, and I'd like to have <b>Chinese</b> translation on the flipped side of the flashcard.   </md-radio-button>
-      <md-radio-button value="brep" class="md-primary">I am learning <b>English</b>, and I'd like to have <b>Portuguese</b> translation on the flipped side of the flashcard.</md-radio-button>
-      <md-radio-button value="ldoce5" class="md-primary">I am learning <b>English</b>, and I'd like to have the definition of the vocabulary on the flipped side.</md-radio-button>
-      <md-radio-button value="lase" class="md-primary">I am learning <b>Spanish</b>, and I'd like to have <b>English</b> translation on the flipped side of the flashcard.</md-radio-button>
-  </md-radio-group>
-
-  <h4> Enter a word: </h4>
-  <div>
+<md-tabs md-selected="step" md-align-tabs="top" md-dynamic-height>
+    <md-tab>
+      <md-tab-label>1 Langauge</md-tab-label>
+      <md-tab-body>
+        <h3> Ready to make your own flashcard?</h3>
+        <h4> First, we'd like you to tell us a little about yourself: </h4>
+        <md-radio-group ng-model="dictionary">
+          <md-radio-button value="ldec" class="md-primary">I am learning <b>English</b>, and I'd like to have <b>Chinese</b> translation on the flipped side of the flashcard.   </md-radio-button>
+          <md-radio-button value="brep" class="md-primary">I am learning <b>English</b>, and I'd like to have <b>Portuguese</b> translation on the flipped side of the flashcard.</md-radio-button>
+          <md-radio-button value="ldoce5" class="md-primary">I am learning <b>English</b>, and I'd like to have the definition of the vocabulary on the flipped side.</md-radio-button>
+          <md-radio-button value="lase" class="md-primary">I am learning <b>Spanish</b>, and I'd like to have <b>English</b> translation on the flipped side of the flashcard.</md-radio-button>
+        </md-radio-group>
+      </md-tab-body>
+    </md-tab>
+    <md-tab>
+      <md-tab-label>2 Enter Vocab</md-tab-label>
+      <md-tab-body>
+        <h3> Cool! We'll be using the {{dictionaries[dictionary]}} to create your flashcard.</h3>
+        <div>
         <md-autocomplete 
           ng-disabled="false"
           md-no-cache="false"
@@ -21,7 +29,7 @@
           md-items="item in querySearch(searchText)"
           md-item-text="item.headword"
           md-min-length="1"
-          placeholder="What is the vocab for this new flashcard?">
+          placeholder="What is the vocab for your flashcard?">
           <md-item-template>
             <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.headword}}</span>
           </md-item-template>
@@ -29,8 +37,90 @@
             No vocab found. Please check spellings.
           </md-not-found>
         </md-autocomplete>
-  </div>
+      </div>
+      </md-tab-body>
+    </md-tab>
+    <md-tab>
+      <md-tab-label>3 Preview</md-tab-label>
+      <md-tab-body>
+      <div layout-padding layout="row" layout-align="center center">
+        <div flex="40" layout-padding>
+          <img ng-click="setSelectedGif($index)" ng-repeat="gif in gifs" ng-src="{{gif.images.fixed_width_small.url}}">
+          <md-tooltip md-direction="bottom">
+          Select a GIF for the flashcard
+        </md-tooltip>
+        </div>
 
+        <div class="flip">
+          <md-tooltip md-direction="bottom">
+          Click to flip flashcard
+        </md-tooltip>
+          <div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
+            <md-card class="face front" layout="column" layout-align="center center">
+              <md-card-content>
+                <img ng-src={{gifurl}}>
+              </md-card-content>
+              <div class="vocab" >{{vocab}}</div>
+            </md-card>
+            <md-card class="face back">
+              <md-card-title>
+                <md-card-title-text layout="column" layout-align="center center">
+                  <span class="md-headline">{{vocab}}</span>
+                  <span class="md-subhead">{{translation}}</span>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
+        </div>
+      </div>
+      </md-tab-body>
+
+    </md-tab>
+    <md-tab>
+      <md-tab-label>4 Done</md-tab-label>
+      <md-tab-body>
+        <div layout-padding layout="row" layout-align="center center">
+        <div class="flip">
+          <div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
+            <md-card class="face front" layout="column" layout-align="center center">
+              <md-card-content>
+                <img ng-src={{gifurl}}>
+              </md-card-content>
+              <div class="vocab" >{{vocab}}</div>
+            </md-card>
+            <md-card class="face back">
+              <md-card-title>
+                <md-card-title-text layout="column" layout-align="center center">
+                  <span class="md-headline">{{vocab}}</span>
+                  <span class="md-subhead">{{translation}}</span>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
+        </div>
+      </div>
+        <md-fab-speed-dial md-direction="up" md-open="isFabOpen" class="md-scale md-fab-bottom-right" ng-mouseenter="isFabOpen=true" ng-mouseleave="isFabOpen=false">
+          <md-fab-trigger>
+            <md-button aria-label="share" class="md-fab">
+              <md-icon md-svg-src="img/icons/share.svg"></md-icon>
+              <md-tooltip md-direction="left">
+          Share
+        </md-tooltip>
+            </md-button>
+          </md-fab-trigger>
+          <md-fab-actions>
+            <a twitter data-lang="en" data-count='horizontal' data-url='{{shareURL}}' data-size="large" data-text='Just made a flashcard with GIFlashcard. Its soooo cool! Check this out:' aria-label="Twitter">
+            </a>
+            <div pintrest data-href="{{shareURL}}" data-description="{{vocab}}: {{translation}} #GIFlashcard" data-img="{{gifurl}}" data-pin-do="buttonPin" data-pin-config="beside"></div>
+            <div tumblr-image data-source="{{gifurl}}" data-caption="{{vocab}}: {{translation}}" data-clickthru="{{shareURL}}"></div>              
+          </md-fab-actions>
+  </md-fab-speed-dial>
+      </md-tab-body>
+    </md-tab>
+</md-tabs>
+
+
+<div ng-show=" step === 3 ">
   <div class="flip">
           <div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
             <md-card class="face front" layout="column" layout-align="center center">
@@ -49,19 +139,7 @@
             </md-card>
           </div>
   </div>
+</div>
 
-  <md-fab-speed-dial md-direction="up" md-open="isFabOpen" class="md-scale md-fab-bottom-right" ng-mouseenter="isFabOpen=true" ng-mouseleave="isFabOpen=false">
-          <md-fab-trigger>
-            <md-button aria-label="share" class="md-fab">
-              <md-icon md-svg-src="img/icons/share.svg"></md-icon>
-            </md-button>
-          </md-fab-trigger>
-          <md-fab-actions>
-            <a twitter data-lang="en" data-count='horizontal' data-url='{{shareURL}}' data-size="large" data-text='Just made a flashcard with GIFlashcard. Its soooo cool! Check this out:' aria-label="Twitter">
-            </a>
-            <div pintrest data-href="{{shareURL}}" data-description="{{vocab}}: {{translation}} #GIFlashcard" data-img="{{gifurl}}" data-pin-do="buttonPin" data-pin-config="beside"></div>
-            <div tumblr-image data-source="{{gifurl}}" data-caption="{{vocab}}: {{translation}}" data-clickthru="{{shareURL}}"></div>              
-          </md-fab-actions>
-  </md-fab-speed-dial>
 
 </div>

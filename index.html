@@ -11,17 +11,6 @@
 
 
 <body ng-app="MainApp" ng-cloak>
-  <!-- Load Facebook SDK -->
-  <div id="fb-root"></div>
-  <script>
-      (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
 
 
   <!--
@@ -42,7 +31,7 @@
 
     </md-sidenav>
 
-    <md-content flex class= "md-whiteframe-z2">
+    <md-content layout="column" layout-align="space-between" flex class= "md-whiteframe-z2" ng-controller="MainController">
       <md-toolbar hide-gt-sm>
         <div class="md-toolbar-tools">
           <md-button class="md-icon-button" aria-label="Settings">
