@@ -10,9 +10,9 @@ app.config(function ($routeProvider){
 	$routeProvider.when('/', {
 		controller: 'MainController',
 		templateUrl: 'views/demo.html'
-	}).when('/flashcard/:dict/:id', {
+	}).when('/flashcard/:dict/:word/:id', {
 		controller: 'MainController',
-		templateUrl: 'views/demo.html'
+		templateUrl: 'views/card.html'
 	}).when('/about', {
 		templateUrl: 'views/about.html'
 	}).otherwise({
@@ -42,10 +42,8 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
 
 		if ($routeParams.dict){
 			$scope.dictionary = $routeParams.dict;
-		}
-
-		if ($routeParams.id){
-			$scope.vocab = $routeParams.id;
+			$scope.vocab = $routeParams.word;
+			$scope.selectedGif = $routeParams.id;
 			var query = $scope.vocab;
 
 			$http.get('//api.pearson.com/v2/dictionaries/'+ $scope.dictionary + '/entries?headword=' + $scope.vocab)
@@ -57,11 +55,12 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
       			}
       			$http.get('//api.giphy.com/v1/gifs/search?q=' + query + '&limit=4&rating=g&api_key=dc6zaTOxFJmzC')
     		.success(function(data) {
-    				var image = data.data[0].images.fixed_width;
+    				var image = data.data[$scope.selectedGif].images.fixed_width;
     				if (image.height > 250){
-    					image = data.data[0].images.fixed_height;
+    					image = data.data[$scope.selectedGif].images.fixed_height;
     				}
 					$scope.gifurl = image.url;
+					$scope.shareURL = 'https://giflashcard.herokuapp.com/flashcard/' + $scope.dictionary + '/' + $scope.vocab + '/' + $scope.selectedGif;
 				});
       		});
 
@@ -104,7 +103,7 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
 			$scope.gifurl = image.url;
     		
     		});
-    		$scope.shareURL = 'https://giflashcard.herokuapp.com/flashcard/' + $scope.dictionary + '/' + $scope.vocab;
+    		$scope.shareURL = 'https://giflashcard.herokuapp.com/flashcard/' + $scope.dictionary + '/' + $scope.vocab + '/' + $scope.selectedGif;
 
 		};
 
@@ -136,6 +135,7 @@ app.controller('MainController', ['$scope', '$http', '$filter', '$routeParams', 
     			image = $scope.gifs[i].images.fixed_height;
     		}
 			$scope.gifurl = image.url;
+			$scope.shareURL = 'https://giflashcard.herokuapp.com/flashcard/' + $scope.dictionary + '/' + $scope.vocab + '/' + $scope.selectedGif;
 		}
 
 

@@ -120,26 +120,5 @@
 </md-tabs>
 
 
-<div ng-show=" step === 3 ">
-  <div class="flip">
-          <div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
-            <md-card class="face front" layout="column" layout-align="center center">
-              <md-card-content>
-                <img ng-src={{gifurl}}>
-              </md-card-content>
-              <div class="vocab" >{{vocab}}</div>
-            </md-card>
-            <md-card class="face back">
-              <md-card-title>
-                <md-card-title-text layout="column" layout-align="center center">
-                  <span class="md-headline">{{vocab}}</span>
-                  <span class="md-subhead">{{translation}}</span>
-                </md-card-title-text>
-              </md-card-title>
-            </md-card>
-          </div>
-  </div>
-</div>
-
 
 </div>

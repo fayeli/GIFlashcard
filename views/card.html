@@ -1,0 +1,36 @@
+<div layout-padding layout="row" layout-align="center center">
+        <div class="flip">
+          <div class="card" ng-class="{'flipped':isFlipped}" ng-click="isFlipped=!isFlipped">
+            <md-card class="face front" layout="column" layout-align="center center">
+              <md-card-content>
+                <img ng-src={{gifurl}}>
+              </md-card-content>
+              <div class="vocab" >{{vocab}}</div>
+            </md-card>
+            <md-card class="face back">
+              <md-card-title>
+                <md-card-title-text layout="column" layout-align="center center">
+                  <span class="md-headline">{{vocab}}</span>
+                  <span class="md-subhead">{{translation}}</span>
+                </md-card-title-text>
+              </md-card-title>
+            </md-card>
+          </div>
+        </div>
+      </div>
+        <md-fab-speed-dial md-direction="up" md-open="isFabOpen" class="md-scale md-fab-bottom-right" ng-mouseenter="isFabOpen=true" ng-mouseleave="isFabOpen=false">
+          <md-fab-trigger>
+            <md-button aria-label="share" class="md-fab">
+              <md-icon md-svg-src="img/icons/share.svg"></md-icon>
+              <md-tooltip md-direction="left">
+          Share
+        </md-tooltip>
+            </md-button>
+          </md-fab-trigger>
+          <md-fab-actions>
+            <a twitter data-lang="en" data-count='horizontal' data-url='{{shareURL}}' data-size="large" data-text='Just made a flashcard with GIFlashcard. Its soooo cool! Check this out:' aria-label="Twitter">
+            </a>
+            <div pintrest data-href="{{shareURL}}" data-description="{{vocab}}: {{translation}} #GIFlashcard" data-img="{{gifurl}}" data-pin-do="buttonPin" data-pin-config="beside"></div>
+            <div tumblr-image data-source="{{gifurl}}" data-caption="{{vocab}}: {{translation}}" data-clickthru="{{shareURL}}"></div>              
+          </md-fab-actions>
+  </md-fab-speed-dial>
